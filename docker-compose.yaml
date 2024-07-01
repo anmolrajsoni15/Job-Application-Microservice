@@ -1,0 +1,137 @@
+version: '3.7'
+services:
+  mspostgres:
+    container_name: mspostgres
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Namita10@snar
+      PGDATA: /data/ms_postgres
+    volumes:
+      - mspostgres:/data/mspostgres
+    ports:
+      - "5434:5432"
+    networks:
+      - mspostgres
+    restart: unless-stopped
+  mspgadmin:
+    container_name: mspgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-anmolrajsoni15@gmail.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - mspgadmin:/var/lib/mspgadmin
+    ports:
+      - "5056:80"
+    networks:
+      - mspostgres
+    restart: unless-stopped
+  
+  companyms:
+    image: anmolrajsoni15/companyms
+    container_name: companyms
+    ports:
+      - "8081:8081"
+    depends_on:
+      - msservicereg
+      - msconfigserver
+    networks:
+      - msnetwork
+      - mspostgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+  jobms:
+    image: anmolrajsoni15/jobms
+    container_name: jobms
+    ports:
+      - "8082:8082"
+    depends_on:
+      - msservicereg
+      - msconfigserver
+    networks:
+      - msnetwork
+      - mspostgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+  reviewms:
+    image: anmolrajsoni15/reviewms
+    container_name: reviewms
+    ports:
+      - "8083:8083"
+    depends_on:
+      - msservicereg
+      - msconfigserver
+    networks:
+      - msnetwork
+      - mspostgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+  msgateway:
+    image: anmolrajsoni15/msgateway
+    container_name: msgateway
+    ports:
+      - "8089:8089"
+    depends_on:
+      - msservicereg
+    networks:
+      - msnetwork
+      - mspostgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: mszipkin
+    ports:
+      - "9411:9411"
+    networks:
+      - msnetwork
+      - mspostgres
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - msnetwork
+      - mspostgres
+  msconfigserver:
+    image: anmolrajsoni15/msconfigserver
+    container_name: msconfigserver
+    ports:
+      - "8080:8080"
+    depends_on:
+      - msservicereg
+    networks:
+      - msnetwork
+      - mspostgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+  msservicereg:
+    image: anmolrajsoni15/msservicereg
+    container_name: msservicereg
+    ports:
+      - "8761:8761"
+    depends_on:
+      - rabbitmq
+      - zipkin
+      - mspostgres
+      - mspgadmin
+    networks:
+      - msnetwork
+      - mspostgres
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+
+  
+networks:
+  msnetwork:
+    driver: bridge
+  mspostgres:
+    driver: bridge
+
+volumes:
+  mspostgres:
+  mspgadmin:

@@ -1,0 +1,68 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-CompanymsApplication<companyms>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.jobdekhodotcom.companyms.CompanymsApplication",
+      "projectName": "companyms",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env",
+      "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=51599 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=companyms"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-JobmsApplication<jobms>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.jobdekhodotcom.jobms.JobmsApplication",
+      "projectName": "jobms",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env",
+      "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=51564 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=jobms"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-ReviewmsApplication<reviewms>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.jobdekhodotdotcom.reviewms.ReviewmsApplication",
+      "projectName": "reviewms",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-ServiceRegistoryApplication<service_registory>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.jobdekhodotcom.service_registory.ServiceRegistoryApplication",
+      "projectName": "service_registory",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env",
+      "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=49608 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=service_registory"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-ConfigServerApplication<config_server>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.jobdekhodotcom.config_server.ConfigServerApplication",
+      "projectName": "config_server",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env",
+      "vmArgs": " -Dcom.sun.management.jmxremote"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-GatewayApplication<gateway>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.jobdekhodotcom.gateway.GatewayApplication",
+      "projectName": "gateway",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}
